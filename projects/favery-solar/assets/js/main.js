@@ -21,32 +21,50 @@ const header = document.getElementById('header');
 const burger = document.getElementById('burger');
 const nav = document.getElementById('nav');
 const sortSelect = document.getElementById('sortSelect');
+const langBtn = document.getElementById('langBtn');
+
+function getProductName(p) {
+  const lang = getLang();
+  return p['name_' + lang] || p.name_en || p.name_uk;
+}
+
+function getProductSpecs(p) {
+  const lang = getLang();
+  return p['specs_' + lang] || p.specs_en || p.specs_uk;
+}
+
+function getBadgeText(p) {
+  if (!p.badgeKey) return '';
+  return t(p.badgeKey);
+}
 
 function renderProducts() {
   let filtered = currentFilter === 'all' ? [...products] : products.filter(p => p.category === currentFilter);
   const sort = currentSort;
+  const currency = t('currency');
 
   if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
   else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-  else if (sort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+  else if (sort === 'name') filtered.sort((a, b) => getProductName(a).localeCompare(getProductName(b)));
 
   productsGrid.innerHTML = filtered.map(p => {
     const inCart = cart.find(item => item.id === p.id);
+    const badge = getBadgeText(p);
     return `
       <div class="product-card" data-id="${p.id}">
-        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        ${badge ? `<span class="product-badge">${badge}</span>` : ''}
         <div class="product-img">
-          <img src="${p.img}" alt="${p.name}" loading="lazy">
+          <img src="${p.img}" alt="${getProductName(p)}" loading="lazy">
         </div>
         <div class="product-body">
-          <h3>${p.name}</h3>
-          <p class="product-specs">${p.specs}</p>
+          <h3>${getProductName(p)}</h3>
+          <p class="product-specs">${getProductSpecs(p)}</p>
           <div class="product-prices">
-            ${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()} грн</span>` : ''}
-            <span class="current-price">${p.price.toLocaleString()} грн</span>
+            ${p.oldPrice ? `<span class="old-price">${p.oldPrice.toLocaleString()} ${currency}</span>` : ''}
+            <span class="current-price">${p.price.toLocaleString()} ${currency}</span>
           </div>
           <button class="btn btn-primary btn-sm add-to-cart" data-id="${p.id}">
-            ${inCart ? '✓ У кошику' : 'Додати в кошик'}
+            ${inCart ? t('inCart') : t('addToCart')}
           </button>
         </div>
       </div>
@@ -55,14 +73,16 @@ function renderProducts() {
 }
 
 function renderCart() {
+  const lang = getLang();
+  const currency = t('currency');
   cartItems.innerHTML = cart.map((item, idx) => {
     const prod = products.find(p => p.id === item.id);
     return `
       <div class="cart-item">
-        <img src="${prod.img}" alt="${prod.name}">
+        <img src="${prod.img}" alt="${getProductName(prod)}">
         <div class="cart-item-info">
-          <div class="cart-item-title">${prod.name}</div>
-          <div class="cart-item-price">${(prod.price * item.qty).toLocaleString()} грн</div>
+          <div class="cart-item-title">${getProductName(prod)}</div>
+          <div class="cart-item-price">${(prod.price * item.qty).toLocaleString()} ${currency}</div>
         </div>
         <div class="cart-item-qty">
           <button class="qty-btn" data-idx="${idx}" data-action="minus">−</button>
@@ -72,13 +92,13 @@ function renderCart() {
         <button class="cart-item-del" data-idx="${idx}">&times;</button>
       </div>
     `;
-  }).join('') || '<p class="cart-empty">Кошик порожній</p>';
+  }).join('') || `<p class="cart-empty">${t('cartEmpty')}</p>`;
 
   const total = cart.reduce((sum, item) => {
     const prod = products.find(p => p.id === item.id);
     return sum + (prod ? prod.price * item.qty : 0);
   }, 0);
-  cartTotal.textContent = `${total.toLocaleString()} грн`;
+  cartTotal.textContent = `${total.toLocaleString()} ${currency}`;
   cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
 
   localStorage.setItem('faveryCart', JSON.stringify(cart));
@@ -93,7 +113,7 @@ function addToCart(id) {
   }
   renderCart();
   renderProducts();
-  showToast('Товар додано до кошика');
+  showToast(t('addedToCart'));
   cartSidebar.classList.add('open');
   cartOverlay.classList.add('show');
 }
@@ -107,6 +127,14 @@ function showToast(msg) {
 function toggleCart() {
   cartSidebar.classList.toggle('open');
   cartOverlay.classList.toggle('show');
+}
+
+function switchLang() {
+  const newLang = getLang() === 'en' ? 'uk' : 'en';
+  setLang(newLang);
+  applyTranslations();
+  renderProducts();
+  renderCart();
 }
 
 productsGrid.addEventListener('click', e => {
@@ -139,13 +167,15 @@ cartBtn.addEventListener('click', toggleCart);
 cartClose.addEventListener('click', toggleCart);
 cartOverlay.addEventListener('click', toggleCart);
 
+langBtn.addEventListener('click', switchLang);
+
 checkoutBtn.addEventListener('click', () => {
-  if (!cart.length) { showToast('Кошик порожній'); return; }
+  if (!cart.length) { showToast(t('cartEmpty')); return; }
   checkoutModal.classList.add('open');
   modalOverlay.classList.add('show');
   orderCart.value = JSON.stringify(cart.map(item => {
     const prod = products.find(p => p.id === item.id);
-    return { name: prod.name, qty: item.qty, price: prod.price };
+    return { name: getProductName(prod), qty: item.qty, price: prod.price };
   }));
 });
 
@@ -173,7 +203,7 @@ orderForm.addEventListener('submit', e => {
       modalOverlay.classList.remove('show');
     })
     .catch(() => {
-      alert('Дякуємо! Ваше замовлення прийнято. Ми передзвонимо для підтвердження.');
+      alert(t('orderSuccess'));
       cart = [];
       renderCart();
       renderProducts();
@@ -228,5 +258,6 @@ nav.querySelectorAll('a').forEach(link => {
   });
 });
 
+applyTranslations();
 renderProducts();
 renderCart();

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Favery-Solar — Інтернет-магазин сонячних панелей</title>
-  <meta name="description" content="Сонячні панелі за найкращими цінами в Україні. Купуйте монокристалічні, полікристалічні та гнучкі панелі з доставкою по всій Україні.">
+  <title>Favery-Solar — Solar Panel Online Store</title>
+  <meta name="description" content="Solar panels at the best prices in Ukraine. Monocrystalline, polycrystalline and flexible panels with delivery across Ukraine.">
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -18,16 +18,20 @@
         </a>
         <nav class="nav" id="nav">
           <ul class="nav-list">
-            <li><a href="#catalog">Каталог</a></li>
-            <li><a href="#about">Про нас</a></li>
-            <li><a href="#contact">Контакти</a></li>
+            <li><a href="#catalog" data-i18n="navCatalog">Catalog</a></li>
+            <li><a href="#about" data-i18n="navAbout">About</a></li>
+            <li><a href="#contact" data-i18n="navContact">Contact</a></li>
           </ul>
         </nav>
         <div class="header-actions">
-          <button class="cart-btn" id="cartBtn" aria-label="Кошик">
-            🛒<span class="cart-count" id="cartCount">0</span>
+          <button class="lang-btn" id="langBtn" aria-label="Switch language">UA</button>
+          <button class="cart-btn" id="cartBtn" aria-label="Cart">
+            <div class="shop-img">
+              <img src="assets/img/shop.png" alt="shop">
+            </div>
+            <span class="cart-count" id="cartCount">0</span>
           </button>
-          <button class="burger" id="burger" aria-label="Меню">
+          <button class="burger" id="burger" aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
         </div>
@@ -38,11 +42,11 @@
   <section class="hero" id="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <h1>Сонячні панелі <br>за найкращими цінами</h1>
-      <p>Енергонезалежність для вашого дому та бізнесу. Офіційна гарантія, швидка доставка, професійний монтаж.</p>
+      <h1><span data-i18n="heroTitle1">Solar Panels</span> <br><span data-i18n="heroTitle2">at the Best Prices</span></h1>
+      <p data-i18n="heroDesc">Energy independence for your home and business. Official warranty, fast delivery, professional installation.</p>
       <div class="hero-buttons">
-        <a href="#catalog" class="btn btn-primary">Перейти до каталогу</a>
-        <a href="#contact" class="btn btn-secondary">Отримати консультацію</a>
+        <a href="#catalog" class="btn btn-primary" data-i18n="heroBtn1">Browse Catalog</a>
+        <a href="#contact" class="btn btn-secondary" data-i18n="heroBtn2">Get a Consultation</a>
       </div>
     </div>
   </section>
@@ -51,13 +55,13 @@
     <div class="container">
       <div class="partners-grid">
         <div class="partner-img">
-          <img src="assets/img/field-clear.jpg" alt="Сонячне поле" loading="lazy">
+          <img src="assets/img/field-clear.jpg" alt="Solar field" loading="lazy">
         </div>
         <div class="partner-img">
-          <img src="assets/img/rows-field.jpg" alt="Ряди сонячних панелей" loading="lazy">
+          <img src="assets/img/rows-field.jpg" alt="Rows of solar panels" loading="lazy">
         </div>
         <div class="partner-img">
-          <img src="assets/img/field-panels.jpg" alt="Сонячні батареї" loading="lazy">
+          <img src="assets/img/field-panels.jpg" alt="Solar panels" loading="lazy">
         </div>
       </div>
     </div>
@@ -66,23 +70,23 @@
   <section class="catalog" id="catalog">
     <div class="container">
       <div class="section-header">
-        <h2>Каталог товарів</h2>
-        <p>Оберіть сонячні панелі, інвертори та комплектуючі</p>
+        <h2 data-i18n="catalogTitle">Product Catalog</h2>
+        <p data-i18n="catalogDesc">Choose solar panels, inverters and accessories</p>
       </div>
       <div class="catalog-controls">
         <div class="filter-btns">
-          <button class="filter-btn active" data-filter="all">Усі товари</button>
-          <button class="filter-btn" data-filter="mono">Монокристалічні</button>
-          <button class="filter-btn" data-filter="poly">Полікристалічні</button>
-          <button class="filter-btn" data-filter="flex">Гнучкі</button>
-          <button class="filter-btn" data-filter="accessories">Комплектуючі</button>
+          <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All Products</button>
+          <button class="filter-btn" data-filter="mono" data-i18n="filterMono">Monocrystalline</button>
+          <button class="filter-btn" data-filter="poly" data-i18n="filterPoly">Polycrystalline</button>
+          <button class="filter-btn" data-filter="flex" data-i18n="filterFlex">Flexible</button>
+          <button class="filter-btn" data-filter="accessories" data-i18n="filterAccessories">Accessories</button>
         </div>
         <div class="sort-control">
           <select id="sortSelect">
-            <option value="default">За замовчуванням</option>
-            <option value="price-asc">Ціна: від низької</option>
-            <option value="price-desc">Ціна: від високої</option>
-            <option value="name">За назвою</option>
+            <option value="default" data-i18n="sortDefault">Default</option>
+            <option value="price-asc" data-i18n="sortPriceAsc">Price: Low to High</option>
+            <option value="price-desc" data-i18n="sortPriceDesc">Price: High to Low</option>
+            <option value="name" data-i18n="sortName">By Name</option>
           </select>
         </div>
       </div>
@@ -97,13 +101,13 @@
           <img src="assets/img/about.jpg" alt="Favery-Solar">
         </div>
         <div class="about-content">
-          <h2>Про Favery-Solar</h2>
-          <p>Ми — український інтернет-магазин сонячних панелей з 8-річним досвідом. Співпрацюємо напряму з виробниками, тому пропонуємо найкращі ціни та офіційну гарантію.</p>
-          <p>Доставка по всій Україні. Також надаємо послуги з монтажу та обслуговування сонячних електростанцій.</p>
+          <h2 data-i18n="aboutTitle">About Favery-Solar</h2>
+          <p data-i18n="aboutDesc1">We are a Ukrainian online store of solar panels with 8 years of experience. We work directly with manufacturers, offering the best prices and official warranty.</p>
+          <p data-i18n="aboutDesc2">Delivery across Ukraine. We also provide installation and maintenance services for solar power plants.</p>
           <ul class="about-stats">
-            <li><strong>500+</strong> <span>Замовлень</span></li>
-            <li><strong>8+</strong> <span>Років на ринку</span></li>
-            <li><strong>25 років</strong> <span>Гарантії</span></li>
+            <li><strong>500+</strong> <span data-i18n="statOrders">Orders</span></li>
+            <li><strong>8+</strong> <span data-i18n="statYears">Years in Business</span></li>
+            <li><strong>25 years</strong> <span data-i18n="statWarranty">Warranty</span></li>
           </ul>
         </div>
       </div>
@@ -113,33 +117,33 @@
   <section class="contact" id="contact">
     <div class="container">
       <div class="section-header">
-        <h2>Є питання?</h2>
-        <p>Залиште заявку — ми передзвонимо протягом 30 хвилин</p>
+        <h2 data-i18n="contactTitle">Got Questions?</h2>
+        <p data-i18n="contactDesc">Leave a request — we will call back within 30 minutes</p>
       </div>
       <div class="contact-grid">
         <form class="contact-form" action="php/send.php" method="POST">
-          <input type="text" name="name" placeholder="Ваше ім'я" required>
-          <input type="tel" name="phone" placeholder="Телефон" required>
-          <input type="email" name="email" placeholder="Email">
-          <textarea name="message" placeholder="Ваше повідомлення" rows="4"></textarea>
-          <button type="submit" class="btn btn-primary">Надіслати</button>
+          <input type="text" name="name" data-i18n-placeholder="formName" placeholder="Your Name" required>
+          <input type="tel" name="phone" data-i18n-placeholder="formPhone" placeholder="Phone" required>
+          <input type="email" name="email" data-i18n-placeholder="formEmail" placeholder="Email">
+          <textarea name="message" data-i18n-placeholder="formMessage" placeholder="Your Message" rows="4"></textarea>
+          <button type="submit" class="btn btn-primary" data-i18n="formSend">Send</button>
         </form>
         <div class="contact-info">
           <div class="contact-item">
-            <span class="contact-label">Телефон</span>
+            <span class="contact-label" data-i18n="labelPhone">Phone</span>
             <a href="tel:+48XXXXXXXXXX">+48 XX XXX XXX XX</a>
           </div>
           <div class="contact-item">
-            <span class="contact-label">Email</span>
+            <span class="contact-label" data-i18n="labelEmail">Email</span>
             <a href="mailto:Solar.XXXXXXX@gmail.com">Solar.XXXXXXX@gmail.com</a>
           </div>
           <div class="contact-item">
-            <span class="contact-label">Адреса</span>
+            <span class="contact-label" data-i18n="labelAddress">Address</span>
             <p>X.XXXXX, .XXX , XXXXXX 15</p>
           </div>
           <div class="contact-item">
-            <span class="contact-label">Графік роботи</span>
-            <p>Пн-Пт: 9:00 — 19:00<br>Сб: 10:00 — 16:00</p>
+            <span class="contact-label" data-i18n="labelSchedule">Working Hours</span>
+            <p><span data-i18n="schedule1">Mon-Fri: 9:00 — 19:00</span><br><span data-i18n="schedule2">Sat: 10:00 — 16:00</span></p>
           </div>
         </div>
       </div>
@@ -154,28 +158,28 @@
             <img src="assets/img/logo.png" alt="Favery-Solar" class="logo-img">
             <span class="logo-text">Favery<span class="logo-accent">-Solar</span></span>
           </a>
-          <p>Найкращі ціни на сонячні панелі в Україні. Доставка по всій країні.</p>
+          <p data-i18n="footerDesc">Best prices on solar panels in Ukraine. Delivery across the country.</p>
         </div>
         <div class="footer-links">
-          <h4>Каталог</h4>
+          <h4 data-i18n="navCatalog">Catalog</h4>
           <ul>
-            <li><a href="#" data-filter="mono">Монокристалічні</a></li>
-            <li><a href="#" data-filter="poly">Полікристалічні</a></li>
-            <li><a href="#" data-filter="flex">Гнучкі панелі</a></li>
-            <li><a href="#" data-filter="accessories">Комплектуючі</a></li>
+            <li><a href="#" data-filter="mono" data-i18n="filterMono">Monocrystalline</a></li>
+            <li><a href="#" data-filter="poly" data-i18n="filterPoly">Polycrystalline</a></li>
+            <li><a href="#" data-filter="flex" data-i18n="filterFlex">Flexible Panels</a></li>
+            <li><a href="#" data-filter="accessories" data-i18n="filterAccessories">Accessories</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Інформація</h4>
+          <h4 data-i18n="footerInfo">Information</h4>
           <ul>
-            <li><a href="#about">Про нас</a></li>
-            <li><a href="#contact">Контакти</a></li>
-            <li><a href="#">Доставка та оплата</a></li>
-            <li><a href="#">Гарантія</a></li>
+            <li><a href="#about" data-i18n="navAbout">About</a></li>
+            <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+            <li><a href="#" data-i18n="deliveryPayment">Delivery & Payment</a></li>
+            <li><a href="#" data-i18n="warrantyLink">Warranty</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Контакти</h4>
+          <h4 data-i18n="navContact">Contact</h4>
           <ul>
             <li><a href="tel:+48XXXXXXXXXX">+48 XX XXX XXX XX</a></li>
             <li><a href="mailto:Solar.XXXXXXX@gmail.com">Solar.XXXXXXX@gmail.com</a></li>
@@ -184,7 +188,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Favery-Solar. Усі права захищені.</p>
+        <p data-i18n="copyright">© 2026 Favery-Solar. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -192,44 +196,45 @@
   <div class="cart-overlay" id="cartOverlay"></div>
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h2>Кошик</h2>
+      <h2 data-i18n="cartTitle">Cart</h2>
       <button class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer">
       <div class="cart-total">
-        <span>Разом:</span>
-        <span id="cartTotal">0 грн</span>
+        <span data-i18n="cartTotal">Total:</span>
+        <span id="cartTotal">0 PLN</span>
       </div>
-      <button class="btn btn-primary" id="checkoutBtn">Оформити замовлення</button>
+      <button class="btn btn-primary" id="checkoutBtn" data-i18n="checkout">Checkout</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="modalOverlay"></div>
   <div class="modal" id="checkoutModal">
     <div class="modal-header">
-      <h2>Оформлення замовлення</h2>
+      <h2 data-i18n="checkoutTitle">Order Checkout</h2>
       <button class="modal-close" id="modalClose">&times;</button>
     </div>
     <form class="modal-form" id="orderForm" action="php/order.php" method="POST">
       <input type="hidden" name="cart" id="orderCart">
-      <input type="text" name="name" placeholder="Ваше ім'я" required>
-      <input type="tel" name="phone" placeholder="Телефон" required>
-      <input type="email" name="email" placeholder="Email">
+      <input type="text" name="name" data-i18n-placeholder="formName" placeholder="Your Name" required>
+      <input type="tel" name="phone" data-i18n-placeholder="formPhone" placeholder="Phone" required>
+      <input type="email" name="email" data-i18n-placeholder="formEmail" placeholder="Email">
       <select name="delivery" required>
-        <option value="">Спосіб доставки</option>
-        <option value="nova-poshta">Нова Пошта</option>
-        <option value="ukrposhta">Укрпошта</option>
-        <option value="self-pickup">Самовивіз (Київ)</option>
+        <option value="" data-i18n="formDelivery">Delivery Method</option>
+        <option value="nova-poshta" data-i18n="formDeliveryNP">Nova Poshta</option>
+        <option value="ukrposhta" data-i18n="formDeliveryUP">Ukrposhta</option>
+        <option value="self-pickup" data-i18n="formDeliveryPickup">Pickup (Kyiv)</option>
       </select>
-      <textarea name="address" placeholder="Адреса доставки / відділення" rows="2"></textarea>
-      <textarea name="comment" placeholder="Коментар до замовлення" rows="2"></textarea>
-      <button type="submit" class="btn btn-primary">Підтвердити замовлення</button>
+      <textarea name="address" data-i18n-placeholder="formAddress" placeholder="Delivery Address / Branch" rows="2"></textarea>
+      <textarea name="comment" data-i18n-placeholder="formComment" placeholder="Order Comment" rows="2"></textarea>
+      <button type="submit" class="btn btn-primary" data-i18n="formConfirm">Confirm Order</button>
     </form>
   </div>
 
   <div class="toast" id="toast"></div>
 
+  <script src="assets/js/lang.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
